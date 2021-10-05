@@ -1,1 +1,1 @@
-web: bin/testing-go
+web: hello_word_web
