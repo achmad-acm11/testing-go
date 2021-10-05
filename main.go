@@ -1,19 +1,28 @@
 package main
 
 import (
-	"io"
-	"log"
+	"fmt"
 	"net/http"
 	"os"
 )
 
-func hello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello World")
+func HelloHandler(wr http.ResponseWriter, req *http.Request) {
+	fmt.Fprintln(wr, "Hello World 1")
 }
 
 func main() {
 	port := os.Getenv("PORT")
-	http.HandleFunc("/", hello)
-	log.Print("Listening on :" + port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", HelloHandler)
+
+	server := http.Server{
+		Addr:    ":" + port,
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
 }
