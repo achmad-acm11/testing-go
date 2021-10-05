@@ -15,7 +15,7 @@ func main() {
 	mux.HandleFunc("/", HelloHandler)
 
 	server := http.Server{
-		Addr:    "localhost:8080",
+		Addr:    "https://testing-go-first.herokuapp.com/",
 		Handler: mux,
 	}
 
